@@ -1,5 +1,7 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 import {promises as fs} from 'fs';
-import {globby} from 'globby';
 import {fileURLToPath} from 'url';
 import {dirname} from 'path';
 import {extract, convert} from './datasheets/extract-and-convert.mjs';
@@ -23,7 +25,12 @@ let assetsPath = args[1].replace(/"/g, '').replace(/\\/g, '/');
 if (assetsPath.endsWith('/')) {
     assetsPath = assetsPath.slice(0, -1);
 }
-const pakFilePaths = await globby(assetsPath + '/**/*.pak');
+
+var recursive = require("recursive-readdir");
+
+const assetFilePaths = await recursive(assetsPath);
+const pakFilePaths = assetFilePaths.filter(file => file.endsWith(".pak"));
+console.log(pakFilePaths);
 
 const outPath = dirname(fileURLToPath(import.meta.url)).replace(/\\/g, '/') + '/out/';
 await fs.mkdir(outPath, {recursive: true});
