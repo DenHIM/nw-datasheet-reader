@@ -11,7 +11,8 @@
 # Execution Instructions
 1. Open Developer Command Prompt
 2. `d: && cd D:\Repos\GitHub-DenHIM\nw-datasheet-reader\`
-3. `node nw-datasheet-reader.mjs "json" "C:\Program Files (x86)\Steam\steamapps\common\New World\assets"`
+3. `rmdir /S /Q "out"`
+4. `node nw-datasheet-reader.mjs "json" "C:\Program Files (x86)\Steam\steamapps\common\New World\assets"`
 
 Syntax: `node nw-datasheet-reader.mjs OUTPUT_FORMAT "PATH_TO_ASSETS"` (currently supported output formats: csv, json)
 
