@@ -9,12 +9,14 @@ const pool = workerpool.pool(__dirname + '/extract-worker.js', {workerType: 'pro
 
 let resultCount = 0;
 
-export async function extractDatasheets(pakFilePaths, outPath) {
+export async function extractDatasheets(pakFilePaths, outPath, extensionPatterns) {
     const start = Date.now();
 
-    process.stdout.write('Extracting datasheets..\r');
+    let recordsPromises;
 
-    const recordsPromises = pakFilePaths.map(extractRelevantRecords);
+    process.stdout.write('Extracting datasheets..\r');
+    recordsPromises = pakFilePaths.map( function(x) { return extractRelevantRecords(x, extensionPatterns); });
+
     const records = [].concat(...(await Promise.all(recordsPromises)));
     const groupedByPakFile =
         Object.entries(
@@ -43,7 +45,7 @@ export async function extractDatasheets(pakFilePaths, outPath) {
     });
 }
 
-async function extractRelevantRecords(filePath) {
+async function extractRelevantRecords(filePath, extensionPatterns) {
     return new Promise(resolve => {
         const entries = [];
 
@@ -51,11 +53,12 @@ async function extractRelevantRecords(filePath) {
             zipFile.readEntry();
 
             zipFile.on('entry', entry => {
-                if (/\.datasheet$/gm.test(entry.fileName)) {
+                let fileNamePattern = new RegExp(extensionPatterns,"gm");
+                if (fileNamePattern.test(entry.fileName)) {
                     entries.push({
                         pakFile: filePath,
                         offset: entry.relativeOffsetOfLocalHeader,
-                        fileName: entry.fileName.replace('sharedassets/springboardentitites/datatables', ''),
+                        fileName: entry.fileName,
                         compressedSize: entry.compressedSize,
                         uncompressedSize: entry.uncompressedSize
                     });

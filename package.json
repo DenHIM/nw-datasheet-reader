@@ -9,10 +9,11 @@
   "author": "Jasper Catthoor",
   "license": "ISC",
   "dependencies": {
-    "yauzl": "https://github.com/Kattoor/yauzl.git",
-    "workerpool": "^6.1.5",
     "ffi-napi": "^4.0.3",
-    "recursive-readdir": "^2.2.2"
+    "globby": "^13.1.1",
+    "recursive-readdir": "^2.2.2",
+    "workerpool": "^6.1.5",
+    "yauzl": "https://github.com/Kattoor/yauzl.git"
   },
   "type": "module",
   "exports": "./index.js",
