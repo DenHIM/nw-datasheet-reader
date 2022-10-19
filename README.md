@@ -4,9 +4,9 @@
 1. Install Node.js (https://nodejs.org/en/download/)
 2. Open Developer Command Prompt
 3. `d: && cd D:\Repos\GitHub-DenHIM\nw-datasheet-reader\`
-4. `npm install`
-5. `npm install recursive-readdir`
-6. `npm install globby`
+4. `npm ci`
+NOTE: ***npm ci*** uses *package.json* and *package-lock.json*. This command is similar to ***npm install***, except it's meant to be used in automated environments such as test platforms, continuous integration, and deployment -- or any situation where you want to make sure you're doing a clean install of your dependencies.
+
 
 # Execution Instructions
 1. Open Developer Command Prompt
