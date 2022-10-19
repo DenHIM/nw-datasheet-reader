@@ -31,12 +31,13 @@ export async function extractDatasheets(pakFilePaths, outPath, extensionPatterns
     return new Promise(resolve => {
         for (let [pakFilePath, fileEntries] of groupedByPakFile) {
             const serializedParameters = JSON.stringify({pakFilePath, fileEntries, outPath});
-
+            
             pool.exec('extractFromPak', [serializedParameters])
                 .then(async () => {
                     resultCount += 1;
+                    console.log('File ' + pakFilePath + '. Progress: ' + resultCount + '/' + groupedByPakFile.length);
                     if (resultCount === groupedByPakFile.length) {
-                        console.log('Extracting datasheets.. finished in ' + (Date.now() - start) + 'ms');
+                        console.log('File ' + pakFilePath + '. Extracting datasheets.. finished in ' + (Date.now() - start) + 'ms');
                         await pool.terminate();
                         resolve();
                     }

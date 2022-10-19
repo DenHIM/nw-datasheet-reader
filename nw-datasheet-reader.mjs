@@ -36,7 +36,13 @@ if (!validModes.includes(mode)) {
 var recursive = require("recursive-readdir");
 
 const assetFilePaths = await recursive(assetsPath);
-const pakFilePaths = assetFilePaths.filter(file => file.endsWith(".pak"));
+const pakFilePaths = assetFilePaths.filter( function(file) {
+    return true &&
+        !file.includes("\\pregame\\") &&
+        !file.includes("\\server\\") &&
+        file.endsWith(".pak");
+    })
+
 console.log(pakFilePaths);
 
 const outPath = dirname(fileURLToPath(import.meta.url)).replace(/\\/g, '/') + '/out/';
