@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "ffi-napi": "^4.0.3",
-    "globby": "^13.1.1",
+    "globby": "^13.1.2",
     "recursive-readdir": "^2.2.2",
     "workerpool": "^6.1.5",
     "yauzl": "https://github.com/Kattoor/yauzl.git"
